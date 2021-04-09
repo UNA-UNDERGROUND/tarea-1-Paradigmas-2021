@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(foro VERSION 0.1.0)
+project(tarea_1 VERSION 0.1.0)
 
 
 set(src_include
