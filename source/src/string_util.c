@@ -10,13 +10,13 @@ typedef struct String {
 } String;
 
 String *newString() {
-	String *newString = malloc(sizeof(String));
-	if (newString) {
-		newString->size = 0;
-		newString->lenght = 0;
-		newString->buffer = NULL;
+	String *self = malloc(sizeof(String));
+	if (self) {
+		self->size = 0;
+		self->lenght = 0;
+		self->buffer = NULL;
 	}
-	return newString;
+	return self;
 }
 void deleteString(String *self) {
 	if (self) {
