@@ -4,6 +4,7 @@
 typedef struct String String;
 
 String *newString();
+String *createString(const char* str);
 void deleteString(String *self);
 const char *getString(String *self);
 size_t getStringLenght(String *str);

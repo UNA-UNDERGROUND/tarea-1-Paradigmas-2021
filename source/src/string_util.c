@@ -1,7 +1,6 @@
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <vcruntime.h>
+#include <string_util.h>
 
 typedef struct String {
 	size_t size;
@@ -18,6 +17,14 @@ String *newString() {
 	}
 	return self;
 }
+String *createString(const char *str) {
+	String *self = newString();
+	if (!setString(self, str)) {
+		deleteString(self);
+	}
+	return self;
+}
+
 void deleteString(String *self) {
 	if (self) {
 		if (self->size) {
