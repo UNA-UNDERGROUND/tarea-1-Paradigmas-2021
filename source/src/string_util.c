@@ -68,7 +68,7 @@ bool setString(String *self, const char *str) {
 		size_t new_len = strlen(str);
 		// practicamente no hay costo de copia
 		// en un string nuevo ya que es solo reservar
-		if (self->size < new_len && !resizeString(self, new_len)) {
+		if (self->size < new_len && !resizeString(self, new_len + 1)) {
 			return false;
 		}
 		strcpy_s(self->buffer, self->size, str);
