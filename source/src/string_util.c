@@ -1,5 +1,7 @@
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vcruntime.h>
 
 typedef struct String {
 	size_t size;
@@ -9,9 +11,11 @@ typedef struct String {
 
 String *newString() {
 	String *newString = malloc(sizeof(String));
-	newString->size = 0;
-	newString->lenght = 0;
-	newString->buffer = NULL;
+	if (newString) {
+		newString->size = 0;
+		newString->lenght = 0;
+		newString->buffer = NULL;
+	}
 	return newString;
 }
 void deleteString(String *self) {
@@ -28,4 +32,41 @@ const char *getString(String *self) {
 }
 size_t getStringLenght(String *self) { return self ? self->lenght : 0; }
 size_t getStringSize(String *self) { return self ? self->size : 0; }
-void setString(String *self, const char *str);
+bool resizeString(String *self, size_t new_size) {
+	if (self) {
+		if (self->size != new_size) {
+			char *newBuffer = malloc(new_size);
+			if (newBuffer) {
+				// hay que copiar los valores y liberar la memoria
+				if (self->size) {
+					strcpy_s(newBuffer, new_size, self->buffer);
+					free(self->buffer);
+				}
+				self->buffer = newBuffer;
+				self->size = new_size;
+				self->lenght =
+				    self->lenght > new_size ? new_size : self->lenght;
+				return true;
+			}
+		} else {
+			// no hacemos nada, es la misma longitud
+			return true;
+		}
+	}
+	// self == NULL || no se puede redimensionar
+	return false;
+}
+bool setString(String *self, const char *str) {
+	if (self) {
+		size_t new_len = strlen(str);
+		// practicamente no hay costo de copia
+		// en un string nuevo ya que es solo reservar
+		if (self->size < new_len && !resizeString(self, new_len)) {
+			return false;
+		}
+		strcpy_s(self->buffer, self->size, str);
+		self->lenght = new_len;
+		return true;
+	}
+	return false;
+}
