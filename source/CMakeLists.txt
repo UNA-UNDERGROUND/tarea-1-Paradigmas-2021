@@ -3,13 +3,14 @@ project(tarea_1 VERSION 0.1.0)
 
 
 set(src_include
-
+    include/string_util.h
 )
 
 
 
 set(src
     ${src_include}
+    src/string_util.c
 )
 
 add_executable(source ${src} src/source.c)
