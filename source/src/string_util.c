@@ -23,7 +23,9 @@ void deleteString(String *self) {
 		}
 	}
 }
-const char *getString();
-size_t getStringLenght(String *str);
-size_t getStringSize(String *str);
-void setString(const char *str);
+const char *getString(String *self) {
+	return self && self->lenght ? self->buffer : "";
+}
+size_t getStringLenght(String *self) { return self ? self->lenght : 0; }
+size_t getStringSize(String *self) { return self ? self->size : 0; }
+void setString(String *self, const char *str);
