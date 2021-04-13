@@ -20,17 +20,17 @@ String *newString() {
 String *createString(const char *str) {
 	String *self = newString();
 	if (!setString(self, str)) {
-		deleteString(self);
+		deleteString(&self);
 	}
 	return self;
 }
 
-void deleteString(String *self) {
-	if (self) {
-		if (self->size) {
-			free(self->buffer);
-			free(self);
-			self = NULL;
+void deleteString(String **self) {
+	if (self && *self) {
+		if ((*self)->size) {
+			free((*self)->buffer);
+			free(*self);
+			(*self) = NULL;
 		}
 	}
 }
