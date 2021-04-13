@@ -6,6 +6,7 @@ set(src_include
     include/string_util.h
     include/informacion.h
     include/habitacion.h
+    include/cliente.h
 )
 
 
