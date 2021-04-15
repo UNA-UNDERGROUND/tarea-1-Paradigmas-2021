@@ -14,6 +14,7 @@ set(src_include
 set(src
     ${src_include}
     src/string_util.c
+    src/interfaz.c
 )
 
 add_executable(source ${src} src/source.c)
