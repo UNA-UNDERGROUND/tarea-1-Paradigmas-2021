@@ -1,6 +1,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <contenedora.h>
+#include <habitacion.h>
 
 void mostrarRecaudacionDeClientesTodoIncluido();
 void mostrarRecaudacionDeClientesSinTodoIncluido();
@@ -30,13 +32,14 @@ void limpiarPantalla(){
 	#endif
 }
 
+extern Contenedora contenedor;
 
 void mainMenu() {
 	inicializarMemoria();
+	
 	system("clear");
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
-
 	while (opcionWhile) {
 		printf("               Menu Principal");
 		printf("\n   -------------------------------------");
