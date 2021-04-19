@@ -1,7 +1,7 @@
 typedef struct Habitacion Habitacion;
 
-struct Contenedora{
+typedef struct Contenedora{
     int pisos;
     int habitaciones;
     Habitacion** vec;
-};
+}Contenedora;

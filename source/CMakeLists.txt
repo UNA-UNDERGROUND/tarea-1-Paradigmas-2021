@@ -7,6 +7,7 @@ set(src_include
     include/informacion.h
     include/habitacion.h
     include/cliente.h
+    include/contenedora.h
 )
 
 
@@ -15,6 +16,7 @@ set(src
     ${src_include}
     src/string_util.c
     src/interfaz.c
+    src/memoria.c
 )
 
 add_executable(source ${src} src/source.c)

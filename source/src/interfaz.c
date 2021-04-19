@@ -18,8 +18,21 @@ void verEstadoDeLasHabitaciones();
 void ponerHabitacionEnMantenimiento();
 void ponerHabitacionEnHabitaciones();
 
-void mainMenu() {
+void inicializarMemoria();
 
+void limpiarPantalla(){
+	// aunque esto se considera inseguro
+	// el proyecto solo es con fines de demostracion
+	#ifdef WIN32
+		system("cls");
+	#else
+		system("clear");
+	#endif
+}
+
+
+void mainMenu() {
+	inicializarMemoria();
 	system("clear");
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
