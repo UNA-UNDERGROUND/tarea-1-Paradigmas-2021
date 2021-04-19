@@ -21,6 +21,7 @@ void ponerHabitacionEnMantenimiento();
 void ponerHabitacionEnHabitaciones();
 
 void inicializarMemoria();
+void liberarMemoria();
 
 void limpiarPantalla(){
 	// aunque esto se considera inseguro
@@ -85,6 +86,7 @@ void mainMenu() {
 			break;
 		}
 	}
+	liberarMemoria();
 }
 
 void administrarReservaciones() {
