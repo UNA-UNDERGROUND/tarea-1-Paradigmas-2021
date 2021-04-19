@@ -1,8 +1,8 @@
+#include <contenedora.h>
+#include <habitacion.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <contenedora.h>
-#include <habitacion.h>
 
 void mostrarRecaudacionDeClientesTodoIncluido();
 void mostrarRecaudacionDeClientesSinTodoIncluido();
@@ -23,22 +23,22 @@ void ponerHabitacionEnHabitaciones();
 void inicializarMemoria();
 void liberarMemoria();
 
-void limpiarPantalla(){
-	// aunque esto se considera inseguro
-	// el proyecto solo es con fines de demostracion
-	#ifdef WIN32
-		system("cls");
-	#else
-		system("clear");
-	#endif
+void limpiarPantalla() {
+// aunque esto se considera inseguro
+// el proyecto solo es con fines de demostracion
+#ifdef WIN32
+	system("cls");
+#else
+	system("clear");
+#endif
 }
 
 extern Contenedora contenedor;
 
 void mainMenu() {
 	inicializarMemoria();
-	
-	system("clear");
+
+	limpiarPantalla();
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 	while (opcionWhile) {
@@ -57,28 +57,28 @@ void mainMenu() {
 		switch (opcionMenu) {
 		case 1:
 
-			system("clear");
+			limpiarPantalla();
 			administrarReservaciones();
 			break;
 		case 2:
 
-			system("clear");
+			limpiarPantalla();
 			administrarHabitaciones();
 			break;
 		case 3:
 
-			system("clear");
+			limpiarPantalla();
 			administrarReportes();
 			break;
 		case 4:
 
-			system("clear");
+			limpiarPantalla();
 			verClientesRegistrados();
 			break;
 
 		case 5:
 
-			system("clear");
+			limpiarPantalla();
 			opcionWhile = 0;
 			break;
 
@@ -90,7 +90,7 @@ void mainMenu() {
 }
 
 void administrarReservaciones() {
-	system("clear");
+	limpiarPantalla();
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 
@@ -108,12 +108,12 @@ void administrarReservaciones() {
 		switch (opcionMenu) {
 		case 1:
 
-			system("clear");
+			limpiarPantalla();
 			agregarReservaciones();
 			break;
 		case 2:
 
-			system("clear");
+			limpiarPantalla();
 			verReservaciones();
 			break;
 
@@ -128,7 +128,7 @@ void agregarReservaciones() {}
 void verReservaciones() {}
 
 void administrarHabitaciones() {
-	system("clear");
+	limpiarPantalla();
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 
@@ -146,12 +146,12 @@ void administrarHabitaciones() {
 		switch (opcionMenu) {
 		case 1:
 
-			system("clear");
+			limpiarPantalla();
 			verEstadoDeLasHabitaciones();
 			break;
 		case 2:
 
-			system("clear");
+			limpiarPantalla();
 			ponerHabitacionEnMantenimiento();
 			break;
 
@@ -180,7 +180,7 @@ void mostrarRecaudacionDeTodosLosClientes() {}
 void verClientesRegistrados() {}
 
 void administrarReportesDeRecaudacion() {
-	system("clear");
+	limpiarPantalla();
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 
@@ -205,22 +205,22 @@ void administrarReportesDeRecaudacion() {
 		switch (opcionMenu) {
 		case 1:
 
-			system("clear");
+			limpiarPantalla();
 			mostrarRecaudacionDeClientesTodoIncluido();
 			break;
 		case 2:
 
-			system("clear");
+			limpiarPantalla();
 			mostrarRecaudacionDeClientesSinTodoIncluido();
 			break;
 		case 3:
 
-			system("clear");
+			limpiarPantalla();
 			mostrarRecaudacionDeTodosLosClientes();
 			break;
 		case 4:
 
-			system("clear");
+			limpiarPantalla();
 			break;
 
 		default:
@@ -234,7 +234,7 @@ void mostrarPersonasAlojadas() {}
 void mostrarEstadosDeLasHabitaciones() {}
 
 void administrarReportes() {
-	system("clear");
+	limpiarPantalla();
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 
@@ -254,28 +254,28 @@ void administrarReportes() {
 		switch (opcionMenu) {
 		case 1:
 
-			system("clear");
+			limpiarPantalla();
 			mostrarPersonasAlojadas();
 			break;
 		case 2:
 
-			system("clear");
+			limpiarPantalla();
 			mostrarEstadosDeLasHabitaciones();
 			break;
 		case 3:
 
-			system("clear");
+			limpiarPantalla();
 			administrarReportesDeRecaudacion();
 			break;
 		case 4:
 
-			system("clear");
+			limpiarPantalla();
 			verClientesRegistrados();
 			break;
 
 		case 5:
 
-			system("clear");
+			limpiarPantalla();
 
 			break;
 
