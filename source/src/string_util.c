@@ -25,6 +25,17 @@ String *createString(const char *str) {
 	return self;
 }
 
+String *generateString(char* buffer, size_t length, size_t size){
+	String* self = NULL;
+	if (buffer) {
+		self = newString();
+		self->buffer = buffer;
+		self->lenght = length;
+		self->size = size;
+	}
+	return self;
+}
+
 void deleteString(String **self) {
 	if (self && *self) {
 		if ((*self)->size) {
