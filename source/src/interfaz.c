@@ -38,10 +38,10 @@ extern Contenedora contenedor;
 void mainMenu() {
 	inicializarMemoria();
 
-	limpiarPantalla();
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 	while (opcionWhile) {
+		limpiarPantalla();
 		printf("               Menu Principal");
 		printf("\n   -------------------------------------");
 		printf("\n   | 1- Administrar reservaciones      |");
@@ -54,31 +54,28 @@ void mainMenu() {
 		printf("\n   Digite una opcion: ");
 		scanf("%d", &opcionMenu);
 
+		limpiarPantalla();
+
 		switch (opcionMenu) {
 		case 1:
 
-			limpiarPantalla();
 			administrarReservaciones();
 			break;
 		case 2:
 
-			limpiarPantalla();
 			administrarHabitaciones();
 			break;
 		case 3:
 
-			limpiarPantalla();
 			administrarReportes();
 			break;
 		case 4:
 
-			limpiarPantalla();
 			verClientesRegistrados();
 			break;
 
 		case 5:
 
-			limpiarPantalla();
 			opcionWhile = 0;
 			break;
 
@@ -90,11 +87,11 @@ void mainMenu() {
 }
 
 void administrarReservaciones() {
-	limpiarPantalla();
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 
 	while (opcionWhile) {
+		limpiarPantalla();
 		printf("             Sub-Menu  Reservaciones");
 		printf("\n   -------------------------------------");
 		printf("\n   | 1- Agregar reservaciones          |");
@@ -104,22 +101,19 @@ void administrarReservaciones() {
 
 		printf("\n   Digite una opcion: ");
 		scanf("%d", &opcionMenu);
-
+		limpiarPantalla();
 		switch (opcionMenu) {
 		case 1:
 
-			limpiarPantalla();
 			agregarReservaciones();
 			break;
 		case 2:
 
-			limpiarPantalla();
 			verReservaciones();
 			break;
 
 		case 3:
 
-			limpiarPantalla();
 			opcionWhile = 0;
 			break;
 
@@ -137,11 +131,11 @@ void agregarReservaciones() {
 void verReservaciones() {}
 
 void administrarHabitaciones() {
-	limpiarPantalla();
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 
 	while (opcionWhile) {
+		limpiarPantalla();
 		printf("           Sub-Menu Habitaciones");
 		printf("\n   ------------------------------------------");
 		printf("\n   | 1- Ver estado de las habitaciones      |");
@@ -151,22 +145,20 @@ void administrarHabitaciones() {
 
 		printf("\n   Digite una opcion: ");
 		scanf("%d", &opcionMenu);
+		limpiarPantalla();
 
 		switch (opcionMenu) {
 		case 1:
 
-			limpiarPantalla();
 			verEstadoDeLasHabitaciones();
 			break;
 		case 2:
 
-			limpiarPantalla();
 			ponerHabitacionEnMantenimiento();
 			break;
 
 		case 3:
 
-			limpiarPantalla();
 			opcionWhile = 0;
 			break;
 
@@ -195,11 +187,12 @@ void mostrarRecaudacionDeTodosLosClientes() {}
 void verClientesRegistrados() {}
 
 void administrarReportesDeRecaudacion() {
-	limpiarPantalla();
+
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 
 	while (opcionWhile) {
+		limpiarPantalla();
 		printf("                  sub-Menu Reportes de recaudaciones");
 		printf(
 		    "\n   ---------------------------------------------------------");
@@ -220,22 +213,18 @@ void administrarReportesDeRecaudacion() {
 		switch (opcionMenu) {
 		case 1:
 
-			limpiarPantalla();
 			mostrarRecaudacionDeClientesTodoIncluido();
 			break;
 		case 2:
 
-			limpiarPantalla();
 			mostrarRecaudacionDeClientesSinTodoIncluido();
 			break;
 		case 3:
 
-			limpiarPantalla();
 			mostrarRecaudacionDeTodosLosClientes();
 			break;
 		case 4:
 
-			limpiarPantalla();
 			opcionWhile = 0;
 
 			break;
@@ -251,11 +240,12 @@ void mostrarPersonasAlojadas() {}
 void mostrarEstadosDeLasHabitaciones() {}
 
 void administrarReportes() {
-	limpiarPantalla();
+
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 
 	while (opcionWhile) {
+		limpiarPantalla();
 		printf("               sub-Menu Reportes");
 		printf("\n   -------------------------------------");
 		printf("\n   | 1- Personas alojadas en el hotel  |");
@@ -267,32 +257,27 @@ void administrarReportes() {
 
 		printf("\n   Digite una opcion: ");
 		scanf("%d", &opcionMenu);
-
+		limpiarPantalla();
 		switch (opcionMenu) {
 		case 1:
 
-			limpiarPantalla();
 			mostrarPersonasAlojadas();
 			break;
 		case 2:
 
-			limpiarPantalla();
 			mostrarEstadosDeLasHabitaciones();
 			break;
 		case 3:
 
-			limpiarPantalla();
 			administrarReportesDeRecaudacion();
 			break;
 		case 4:
 
-			limpiarPantalla();
 			verClientesRegistrados();
 			break;
 
 		case 5:
 
-			limpiarPantalla();
 			opcionWhile = 0;
 			break;
 
