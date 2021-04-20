@@ -17,6 +17,7 @@ set(src
     src/string_util.c
     src/interfaz.c
     src/memoria.c
+    src/hotel.c
 )
 
 add_executable(source ${src} src/source.c)

@@ -117,13 +117,22 @@ void administrarReservaciones() {
 			verReservaciones();
 			break;
 
+		case 3:
+
+			limpiarPantalla();
+			opcionWhile = 0;
+			break;
+
 		default:
 			break;
 		}
 	}
 }
 
-void agregarReservaciones() {}
+void agregarReservaciones() {
+	Habitacion habitacion;
+	reservarHabitacion(&habitacion);
+}
 
 void verReservaciones() {}
 
@@ -153,6 +162,12 @@ void administrarHabitaciones() {
 
 			limpiarPantalla();
 			ponerHabitacionEnMantenimiento();
+			break;
+
+		case 3:
+
+			limpiarPantalla();
+			opcionWhile = 0;
 			break;
 
 		default:
@@ -221,6 +236,8 @@ void administrarReportesDeRecaudacion() {
 		case 4:
 
 			limpiarPantalla();
+			opcionWhile = 0;
+
 			break;
 
 		default:
@@ -276,7 +293,7 @@ void administrarReportes() {
 		case 5:
 
 			limpiarPantalla();
-
+			opcionWhile = 0;
 			break;
 
 		default:
