@@ -11,6 +11,11 @@ void guardarCadena(String *cadena) {
 	setString(cadena, buffer);
 }
 
+void imprimirCadena(String *cadena) {
+	char *tex = getString(cadena);
+	printf("%s", tex);
+}
+
 void crearCliente(Cliente *cliente) {
 	String *id = createString("a");
 	String *nombre = createString("a");
@@ -64,11 +69,25 @@ void reservarHabitacion(Habitacion *habitacion) {
 
 	habitacion->estado = 'O';
 	crearCliente(&cliente);
-	char *tex = getString(cliente.nombreCliente);
-	printf("Hola %s!\n", tex);
-	char *tex2 = getString(cliente.id);
-	printf("Hola %s!\n", tex2);
+
 	llenarInformacion(&informacion);
 	habitacion->cliente = &cliente;
 	habitacion->informacion = &informacion;
+}
+
+void imprimirMatriz(Contenedora *cont) {
+
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+	printf("Estados de las habitaciones \n Ocupadas: O \n Disponibles: poseen "
+	       "un numero \n En mantenimiento: M");
+	printf("\n\n");
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			printf("%c ", habitacion.estado);
+		}
+		printf("\n");
+	}
 }
