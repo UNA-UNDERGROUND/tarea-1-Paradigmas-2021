@@ -47,9 +47,11 @@ bool resizeString(String *self, size_t new_size) {
 				// hay que copiar los valores y liberar la memoria
 				if (self->size) {
 					// si la longitud nueva es menor solo copiamos hasta donde
-					// podemos
-
-					size_t longitud = min(strlen(self->buffer) + 1, new_size);
+					// podemos teniendo en cuenta el caracter nulo
+					size_t longitud =  strlen(self->buffer) + 1;
+					if(longitud > new_size){
+						longitud = new_size;
+					}
 					memcpy(newBuffer, self->buffer, longitud);
 					// no es portable
 					// strcpy_s(newBuffer, new_size, self->buffer);
