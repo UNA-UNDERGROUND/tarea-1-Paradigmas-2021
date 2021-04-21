@@ -9,8 +9,7 @@ void mostrarRecaudacionDeClientesSinTodoIncluido();
 void mostrarRecaudacionDeTodosLosClientes();
 void verClientesRegistrados();
 void administrarReportesDeRecaudacion();
-void mostrarPersonasAlojadas();
-void mostrarEstadosDeLasHabitaciones();
+
 void administrarReportes();
 void administrarReservaciones();
 void agregarReservaciones();
@@ -37,11 +36,13 @@ extern Contenedora contenedor;
 
 void mainMenu() {
 	inicializarMemoria();
+	llenarMatriz(&contenedor);
 
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
 	while (opcionWhile) {
 		limpiarPantalla();
+
 		printf("               Menu Principal");
 		printf("\n   -------------------------------------");
 		printf("\n   | 1- Administrar reservaciones      |");
@@ -124,8 +125,20 @@ void administrarReservaciones() {
 }
 
 void agregarReservaciones() {
-	Habitacion habitacion;
-	reservarHabitacion(&habitacion);
+
+	int y = 0;
+	int x = 0;
+
+	imprimirMatriz(&contenedor);
+	scanf("%d", &x);
+	scanf("%d", &y);
+
+	if (contenedor.vec[x][y].estado == 'L') {
+		reservarHabitacion(&contenedor.vec[x][y]);
+
+	} else {
+		printf("habitacion no disponible");
+	}
 }
 
 void verReservaciones() {}
@@ -194,6 +207,7 @@ void administrarReportesDeRecaudacion() {
 	while (opcionWhile) {
 		limpiarPantalla();
 		printf("                  sub-Menu Reportes de recaudaciones");
+
 		printf(
 		    "\n   ---------------------------------------------------------");
 		printf(
@@ -237,8 +251,6 @@ void administrarReportesDeRecaudacion() {
 
 void mostrarPersonasAlojadas() {}
 
-void mostrarEstadosDeLasHabitaciones() {}
-
 void administrarReportes() {
 
 	bool opcionWhile = 1;
@@ -246,14 +258,31 @@ void administrarReportes() {
 
 	while (opcionWhile) {
 		limpiarPantalla();
+
 		printf("               sub-Menu Reportes");
-		printf("\n   -------------------------------------");
-		printf("\n   | 1- Personas alojadas en el hotel  |");
-		printf("\n   | 2- Estado de las habitaciones     |");
-		printf("\n   | 3- Reportes de recaudaciones      |");
-		printf("\n   | 4- Ver clientes registrados       |");
-		printf("\n   | 5- Salir                          |");
-		printf("\n   -------------------------------------");
+		printf(
+		    "\n   "
+		    "---------------------------------------------------------------");
+		printf("\n   | 1- Cuantas habitaciones estan libres                    "
+		       "     |");
+		printf("\n   | 2- Cuantas estan en mantenimiento                       "
+		       "     |");
+		printf("\n   | 3- Cuantas habitaciones ocupadas                        "
+		       "     |");
+		printf("\n   | 4- Cuantas hay desocupadas por cantidad de camas        "
+		       "     |");
+		printf("\n   | 5- Cuantas personas adultas hay el dia de hoy en el "
+		       "hotel   |");
+		printf(
+		    "\n   | 6- Cuantos ninnos existen al dia de hoy en el hotel      "
+		    "    |");
+		printf("\n   | 7- Submenu-Reportes De Recaudacion                      "
+		       "     |");
+		printf("\n   | 8- Salir                      "
+		       "     |");
+		printf(
+		    "\n   "
+		    "---------------------------------------------------------------");
 
 		printf("\n   Digite una opcion: ");
 		scanf("%d", &opcionMenu);
@@ -261,22 +290,39 @@ void administrarReportes() {
 		switch (opcionMenu) {
 		case 1:
 
-			mostrarPersonasAlojadas();
+			printf("%d ", cantHabitacionesLibres(&contenedor));
+			pause();
 			break;
 		case 2:
 
-			mostrarEstadosDeLasHabitaciones();
+			printf("%d ", cantHabitacionesEnMantenimiento(&contenedor));
+			pause();
 			break;
 		case 3:
 
-			administrarReportesDeRecaudacion();
+			printf("%d ", cantHabitacionesOcupadas(&contenedor));
+			pause();
 			break;
 		case 4:
 
-			verClientesRegistrados();
 			break;
 
 		case 5:
+			printf("%d ", cantDePersonasAdultas(&contenedor));
+			pause();
+			break;
+
+		case 6:
+
+			printf("%d ", cantDeNinnos(&contenedor));
+			pause();
+			break;
+
+		case 7:
+
+			break;
+
+		case 8:
 
 			opcionWhile = 0;
 			break;
