@@ -1,9 +1,24 @@
+#include "informacion.h"
 #include <cliente.h>
 #include <contenedora.h>
 #include <habitacion.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+void pause() {
+	/*  Procedimiento tomado de: https://stackoverrun.com/es/q/3397614  */
+
+	int c;
+	do {
+		c = getchar();
+	} while (c != '\n' && c != EOF);
+	if (c == EOF) {
+	} else {
+		printf("\n\n Presione enter para continuar...");
+		getchar();
+	}
+}
 
 void guardarCadena(String *cadena) {
 	char *buffer = malloc(sizeof(char) * 100);
@@ -50,7 +65,7 @@ void crearCliente(Cliente *cliente) {
 void llenarInformacion(Informacion *informacion) {
 
 	printf("\nReservacion todo incluido? ");
-	printf("\n 1.Si \n 2.No \n(Ingrese el numero de la respuesta  )");
+	printf("\n 1.Si \n 0.No \n(Ingrese el numero de la respuesta  )");
 	scanf("%d", &informacion->todoIncluido);
 
 	printf("\nNumero de adultos: ");
@@ -61,18 +76,22 @@ void llenarInformacion(Informacion *informacion) {
 
 	printf("\nNumero de dias: ");
 	scanf("%d", &informacion->numeroDias);
+
+	printf("\nIngrese la hora en la que esta reservando(formato 24 horas): ");
+	scanf("%d", &informacion->hora);
 }
 
 void reservarHabitacion(Habitacion *habitacion) {
-	Cliente cliente;
-	Informacion informacion;
+	Cliente *cliente = malloc(sizeof(Cliente));
+	Informacion *informacion = malloc(sizeof(Informacion));
 
 	habitacion->estado = 'O';
-	crearCliente(&cliente);
+	crearCliente(cliente);
 
-	llenarInformacion(&informacion);
-	habitacion->cliente = &cliente;
-	habitacion->informacion = &informacion;
+	llenarInformacion(informacion);
+
+	habitacion->cliente = cliente;
+	habitacion->informacion = informacion;
 }
 
 void imprimirMatriz(Contenedora *cont) {
@@ -105,4 +124,147 @@ void llenarMatriz(Contenedora *cont) {
 		}
 		printf("\n");
 	}
+}
+
+int cantHabitacionesLibres(Contenedora *cont) {
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+
+	int contador = 0;
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			if (habitacion.estado == 'L') {
+				contador++;
+			}
+		}
+	}
+
+	return contador;
+}
+
+int cantHabitacionesEnMantenimiento(Contenedora *cont) {
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+
+	int contador = 0;
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			if (habitacion.estado == 'M') {
+				contador++;
+			}
+		}
+	}
+
+	return contador;
+}
+
+int cantHabitacionesOcupadas(Contenedora *cont) {
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+
+	int contador = 0;
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			if (habitacion.estado == 'O') {
+				contador++;
+			}
+		}
+	}
+
+	return contador;
+}
+
+int cantDeCamasDesocupadasSegunAux(Contenedora *cont, int aux) {
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+
+	int contador = 0;
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			if (habitacion.camas == aux) {
+				contador++;
+			}
+		}
+	}
+
+	return contador;
+}
+
+Habitacion *obtenerHabitacionPorIdCliente(String *id, Contenedora *cont) {
+
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			if (cmpString(id, matriz[i][j].id)) {
+				return &matriz[i][j];
+				;
+			}
+		}
+	}
+
+	return NULL;
+}
+
+void liberarhabitacionPorIdCliente(String *id, Contenedora *cont) {
+	Habitacion *hab = obtenerHabitacionPorIdCliente(id, cont);
+
+	if (hab != NULL) {
+		hab->id = createString("-");
+		hab->estado = 'L';
+		hab->cliente = NULL;
+		hab->informacion = NULL;
+		hab->camas = 3;
+		hab->clasificacion = NULL;
+	}
+}
+
+int cantDePersonasAdultas(Contenedora *cont) {
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+	Informacion *info;
+
+	int contador = 0;
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			info = matriz[i][j].informacion;
+			if (info != NULL) {
+				contador += info->numeroAdultos;
+			}
+		}
+	}
+
+	return contador;
+}
+
+int cantDeNinnos(Contenedora *cont) {
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+	Informacion *info;
+
+	int contador = 0;
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			info = matriz[i][j].informacion;
+			if (info != NULL) {
+				contador += info->numeroInfante;
+			}
+		}
+	}
+
+	return contador;
 }
