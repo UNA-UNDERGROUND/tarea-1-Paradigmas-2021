@@ -8,6 +8,7 @@ set(src_include
     include/habitacion.h
     include/cliente.h
     include/contenedora.h
+    include/utils.h
 )
 
 
@@ -18,6 +19,7 @@ set(src
     src/interfaz.c
     src/memoria.c
     src/hotel.c
+    src/utils.c
 )
 
 add_executable(source ${src} src/source.c)
