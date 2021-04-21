@@ -16,7 +16,7 @@ void agregarReservaciones();
 void verReservaciones();
 void administrarHabitaciones();
 void verEstadoDeLasHabitaciones();
-void ponerHabitacionEnMantenimiento();
+void cambiarEstadoHabitaciones();
 void ponerHabitacionEnHabitaciones();
 
 void inicializarMemoria();
@@ -126,22 +126,27 @@ void administrarReservaciones() {
 
 void agregarReservaciones() {
 
-	int y = 0;
-	int x = 0;
+	String *idHabitacion = createString("a");
 
-	imprimirMatriz(&contenedor);
-	scanf("%d", &x);
-	scanf("%d", &y);
+	printf("Ingrese el id de la habitacion");
+	guardarCadena(idHabitacion);
 
-	if (contenedor.vec[x][y].estado == 'L') {
-		reservarHabitacion(&contenedor.vec[x][y]);
+	for (int i = 0; i < contenedor.habitaciones; i++) {
+		for (int j = 0; j < contenedor.pisos; j++) {
 
-	} else {
-		printf("habitacion no disponible");
+			if (cmpString(idHabitacion, contenedor.vec[i][j].id)) {
+
+				reservarHabitacion(&contenedor.vec[i][j]);
+				return;
+			}
+		}
 	}
 }
 
-void verReservaciones() {}
+void verReservaciones() {
+	imprimirMatriz(&contenedor);
+	pause();
+}
 
 void administrarHabitaciones() {
 	bool opcionWhile = 1;
@@ -152,7 +157,7 @@ void administrarHabitaciones() {
 		printf("           Sub-Menu Habitaciones");
 		printf("\n   ------------------------------------------");
 		printf("\n   | 1- Ver estado de las habitaciones      |");
-		printf("\n   | 2- Poner habitacion en mantenimiento   |");
+		printf("\n   | 2- Cambiar estado de las habitaciones  |");
 		printf("\n   | 3- Salir                               |");
 		printf("\n   ------------------------------------------");
 
@@ -167,7 +172,7 @@ void administrarHabitaciones() {
 			break;
 		case 2:
 
-			ponerHabitacionEnMantenimiento();
+			cambiarEstadoHabitaciones();
 			break;
 
 		case 3:
@@ -182,10 +187,25 @@ void administrarHabitaciones() {
 }
 
 // TODO: por implementar
-void verEstadoDeLasHabitaciones() {}
+void verEstadoDeLasHabitaciones() {
+	imprimirMatriz(&contenedor);
+	pause();
+}
 
 // TODO: por implementar
-void ponerHabitacionEnMantenimiento() {}
+void cambiarEstadoHabitaciones() {
+
+	String *idHabitacion = createString("a");
+	char estado;
+
+	printf("Ingrese el id de la habitacion");
+	guardarCadena(idHabitacion);
+	printf("Ingrese el nuevo estado de la habitacion");
+	scanf("  %c", &estado);
+
+	cambiarEstadoDelaHabitacion(&contenedor, idHabitacion, estado);
+	pause();
+}
 
 // TODO: por implementar
 void mostrarRecaudacionDeClientesTodoIncluido() {}
@@ -251,6 +271,18 @@ void administrarReportesDeRecaudacion() {
 
 void mostrarPersonasAlojadas() {}
 
+void cantCamasDesocupadas() {
+
+	printf("\nCantidad de habitaciones libres con 2 camas: %d",
+	       cantDeCamasDesocupadasSegunAux(&contenedor, 2));
+	printf("\nCantidad de habitaciones libres con 3 camas: %d",
+	       cantDeCamasDesocupadasSegunAux(&contenedor, 3));
+	printf("\nCantidad de habitaciones libres con 4 camas: %d",
+	       cantDeCamasDesocupadasSegunAux(&contenedor, 4));
+	printf("\nCantidad de habitaciones libres con 5 camas: %d",
+	       cantDeCamasDesocupadasSegunAux(&contenedor, 5));
+}
+
 void administrarReportes() {
 
 	bool opcionWhile = 1;
@@ -304,7 +336,8 @@ void administrarReportes() {
 			pause();
 			break;
 		case 4:
-
+			cantCamasDesocupadas();
+			pause();
 			break;
 
 		case 5:
@@ -319,7 +352,7 @@ void administrarReportes() {
 			break;
 
 		case 7:
-
+			administrarReportesDeRecaudacion();
 			break;
 
 		case 8:
