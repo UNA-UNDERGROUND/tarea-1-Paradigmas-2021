@@ -117,3 +117,19 @@ bool catString(String *self, String *other) {
 
 	return false;
 }
+bool cmpString(String *self, String *other) {
+	if (self == other) {
+		return true;
+	}
+	if (!self || !other || self->lenght != other->lenght) {
+		return false;
+	}
+
+	for (size_t i = 0; i < self->lenght; i++) {
+		if (self->buffer[i] != other->buffer[i]) {
+			return false;
+		}
+	}
+
+	return true;
+}

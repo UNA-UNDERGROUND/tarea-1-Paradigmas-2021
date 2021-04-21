@@ -13,3 +13,4 @@ size_t getStringSize(String *str);
 bool resizeString(String *self, size_t new_size);
 bool setString(String *self, const char *str);
 bool catString(String *self, String *other);
+bool cmpString(String *self, String *other);
