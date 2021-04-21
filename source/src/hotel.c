@@ -122,7 +122,6 @@ void llenarMatriz(Contenedora *cont) {
 			cont->vec[i][j].camas = 3;
 			cont->vec[i][j].clasificacion = NULL;
 		}
-		printf("\n");
 	}
 }
 
@@ -206,7 +205,7 @@ Habitacion *obtenerHabitacionPorIdCliente(String *id, Contenedora *cont) {
 	for (int i = 0; i < cont->habitaciones; i++) {
 		for (int j = 0; j < cont->pisos; j++) {
 			habitacion = matriz[i][j];
-			if (cmpString(id, matriz[i][j].id)) {
+			if (cmpString(id, habitacion.cliente->id)) {
 				return &matriz[i][j];
 				;
 			}
@@ -268,3 +267,33 @@ int cantDeNinnos(Contenedora *cont) {
 
 	return contador;
 }
+
+void cambiarEstadoDelaHabitacion(Contenedora *cont, String *id, char estado) {
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+
+			if (cmpString(id, cont->vec[i][j].id)) {
+
+				cont->vec[i][j].estado = estado;
+				return;
+			}
+		}
+	}
+}
+
+/*void obtenerHabitacionPorIdhabitacion(String *id, Contenedora *cont) {
+
+    for (int i = 0; i < cont->habitaciones; i++) {
+        for (int j = 0; j < cont->pisos; j++) {
+
+            if (cmpString(id, cont->vec[i][j].id)) {
+
+                cont->vec[i][j];
+
+            }
+        }
+    }
+
+
+}*/
