@@ -89,3 +89,11 @@ String *fReadLine(FILE *stream, char delim) {
 
 	return string;
 }
+
+// fmt puede ser %d o %f
+const char *parseNumber(const float num, const char *fmt) {
+	size_t len = snprintf(NULL, 0, fmt, num);
+	char *buffer = malloc(len + 1);
+	snprintf(buffer, len + 1, fmt, num);
+	return buffer;
+}
