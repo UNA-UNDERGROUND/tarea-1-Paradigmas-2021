@@ -91,3 +91,18 @@ void imprimirMatriz(Contenedora *cont) {
 		printf("\n");
 	}
 }
+
+void llenarMatriz(Contenedora *cont) {
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			cont->vec[i][j].id = createString("-");
+			cont->vec[i][j].estado = 'L';
+			cont->vec[i][j].cliente = NULL;
+			cont->vec[i][j].informacion = NULL;
+			cont->vec[i][j].camas = 3;
+			cont->vec[i][j].clasificacion = NULL;
+		}
+		printf("\n");
+	}
+}

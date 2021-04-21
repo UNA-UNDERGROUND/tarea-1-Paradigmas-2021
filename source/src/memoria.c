@@ -10,13 +10,14 @@ Contenedora contenedor;
 void inicializarMemoria() {
 	contenedor.pisos = max_pisos;
 	contenedor.habitaciones = max_habitaciones;
-	contenedor.vec = malloc(sizeof(Habitacion*) * max_pisos);
+	contenedor.vec = malloc(sizeof(Habitacion *) * max_pisos);
 	for (size_t i = 0; i < contenedor.pisos; i++) {
-		contenedor.vec[i] = malloc(sizeof(Habitacion) * contenedor.habitaciones);
+		contenedor.vec[i] =
+		    malloc(sizeof(Habitacion) * contenedor.habitaciones);
 	}
 }
 
-void liberarMemoria(){
+void liberarMemoria() {
 	for (size_t i = 0; i < contenedor.pisos; i++) {
 		free(contenedor.vec[i]);
 	}

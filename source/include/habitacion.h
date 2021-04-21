@@ -7,6 +7,6 @@ typedef struct Habitacion {
 	char estado;
 	Cliente *cliente;
 	Informacion *informacion;
-	int cantCamas;
+	int camas;
 	String *clasificacion;
 } Habitacion;
