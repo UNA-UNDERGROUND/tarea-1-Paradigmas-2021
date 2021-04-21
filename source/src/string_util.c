@@ -25,8 +25,8 @@ String *createString(const char *str) {
 	return self;
 }
 
-String *generateString(char* buffer, size_t length, size_t size){
-	String* self = NULL;
+String *generateString(char *buffer, size_t length, size_t size) {
+	String *self = NULL;
 	if (buffer) {
 		self = newString();
 		self->buffer = buffer;
@@ -59,8 +59,8 @@ bool resizeString(String *self, size_t new_size) {
 				if (self->size) {
 					// si la longitud nueva es menor solo copiamos hasta donde
 					// podemos teniendo en cuenta el caracter nulo
-					size_t longitud =  strlen(self->buffer) + 1;
-					if(longitud > new_size){
+					size_t longitud = strlen(self->buffer) + 1;
+					if (longitud > new_size) {
 						longitud = new_size;
 					}
 					memcpy(newBuffer, self->buffer, longitud);
@@ -103,5 +103,17 @@ bool setString(String *self, const char *str) {
 		self->lenght = new_len;
 		return true;
 	}
+	return false;
+}
+bool catString(String *self, String *other) {
+	if (self && other) {
+		size_t new_size = self->lenght + other->lenght - 1;
+		// redimensionar si es requerido
+		if (new_size > self->size && !resizeString(self, new_size)) {
+			return false;
+		}
+		memcpy(self->buffer + (self->lenght - 1), other->buffer, other->lenght);
+	}
+
 	return false;
 }
