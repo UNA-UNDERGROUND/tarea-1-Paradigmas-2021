@@ -40,7 +40,6 @@ extern Contenedora contenedor;
 
 void mainMenu() {
 	inicializarMemoria();
-	llenarMatriz(&contenedor);
 
 	bool opcionWhile = 1;
 	int opcionMenu = 0;

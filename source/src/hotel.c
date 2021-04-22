@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 void pause() {
 	/*  Procedimiento tomado de: https://stackoverrun.com/es/q/3397614  */
@@ -108,24 +107,6 @@ void imprimirMatriz(Contenedora *cont) {
 			printf("%c ", habitacion.estado);
 		}
 		printf("\n");
-	}
-}
-
-void llenarMatriz(Contenedora *cont) {
-	srand(time(0));
-
-	for (int i = 0; i < cont->pisos; i++) {
-		for (int j = 0; j < cont->habitaciones; j++) {
-			size_t len = snprintf(NULL, 0, "%d-%d", i, j);
-			char *buffer = malloc(len + 1);
-			snprintf(buffer, len + 1, "%d-%d", i, j);
-			cont->vec[i][j].id = generateString(buffer, len + 1, len + 1);
-			cont->vec[i][j].estado = 'L';
-			cont->vec[i][j].cliente = NULL;
-			cont->vec[i][j].informacion = NULL;
-			cont->vec[i][j].camas = 2 + (rand() % (5 - 2));
-			cont->vec[i][j].clasificacion = 1 + (rand() % (3 - 1));
-		}
 	}
 }
 
