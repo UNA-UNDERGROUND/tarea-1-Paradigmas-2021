@@ -35,8 +35,12 @@ void inicializarMemoria() {
 
 	// con esto aseguramos siempre estar inicializado
 	for (size_t i = 0; i < contenedor.pisos; i++) {
+		// algunos analizadores estaticos reportan desbordamiento posible
+		// si se dejan en el mismo bucle (MSVC), posible bug
 		contenedor.vec[i] =
 		    malloc(sizeof(Habitacion) * contenedor.habitaciones);
+	}
+	for (size_t i = 0; i < contenedor.pisos; i++) {
 		for (size_t j = 0; j < contenedor.habitaciones; j++) {
 			size_t len = snprintf(NULL, 0, "%zu-%zu", i, j);
 			char *buffer = malloc(len + 1);
@@ -52,8 +56,6 @@ void inicializarMemoria() {
 
 	if (fhab && fcli && finf) {
 		for (size_t i = 0; i < contenedor.pisos; i++) {
-			contenedor.vec[i] =
-			    malloc(sizeof(Habitacion) * contenedor.habitaciones);
 			for (size_t j = 0; j < contenedor.habitaciones; j++) {
 				Habitacion *hab = &contenedor.vec[i][j];
 				char *id = NULL;
@@ -141,6 +143,7 @@ void inicializarMemoria() {
 					hab->clasificacion = clasificacion;
 				} else {
 					free(id);
+					id = NULL;
 				}
 			}
 		}
@@ -201,7 +204,6 @@ void liberarMemoria() {
 				if (informacion) {
 					fwrite(informacion, sizeof(Informacion), 1, finf);
 				}
-				return;
 			}
 			free(contenedor.vec[i]);
 		}
