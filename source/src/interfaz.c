@@ -8,7 +8,7 @@
 void mostrarRecaudacionDeClientesTodoIncluido();
 void mostrarRecaudacionDeClientesSinTodoIncluido();
 void mostrarRecaudacionDeTodosLosClientes();
-void verClientesRegistrados();
+
 void administrarReportesDeRecaudacion();
 
 void administrarReportes();
@@ -69,8 +69,7 @@ void mainMenu() {
 		printf("\n   | 1- Administrar reservaciones      |");
 		printf("\n   | 2- Administrar habitaciones       |");
 		printf("\n   | 3- Administrar reportes           |");
-		printf("\n   | 4- Ver clientes registrados       |");
-		printf("\n   | 5- Salir                          |");
+		printf("\n   | 4- Salir                          |");
 		printf("\n   -------------------------------------");
 
 		printf("\n   Digite una opcion: ");
@@ -91,12 +90,8 @@ void mainMenu() {
 
 			administrarReportes();
 			break;
+
 		case 4:
-
-			verClientesRegistrados();
-			break;
-
-		case 5:
 
 			opcionWhile = 0;
 			break;
