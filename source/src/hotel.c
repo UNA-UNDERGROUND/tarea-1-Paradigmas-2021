@@ -1,10 +1,12 @@
-#include "informacion.h"
+#include <informacion.h>
+#include <utils.h>
 #include <cliente.h>
 #include <contenedora.h>
 #include <habitacion.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void pause() {
 	/*  Procedimiento tomado de: https://stackoverrun.com/es/q/3397614  */
@@ -20,15 +22,9 @@ void pause() {
 	}
 }
 
-void guardarCadena(String *cadena) {
-	char *buffer = malloc(sizeof(char) * 100);
-	scanf("%s", buffer);
-	setString(cadena, buffer);
-}
 
 void imprimirCadena(String *cadena) {
-	char *tex = getString(cadena);
-	printf("%s", tex);
+	printf("%s", getString(cadena));
 }
 
 void crearCliente(Cliente *cliente) {
@@ -64,9 +60,13 @@ void crearCliente(Cliente *cliente) {
 
 void llenarInformacion(Informacion *informacion) {
 
-	printf("\nReservacion todo incluido? ");
-	printf("\n 1.Si \n 0.No \n(Ingrese el numero de la respuesta  )");
-	scanf("%d", &informacion->todoIncluido);
+	char todoIncluido = 'n';
+	do {
+		printf("\nReservacion todo incluido? ");
+		printf("\n (s)i (n)o \n");
+		scanf(" %c", &todoIncluido);
+	} while (todoIncluido != 's' || todoIncluido != 'n');
+	informacion->todoIncluido = todoIncluido == 's';
 
 	printf("\nNumero de adultos: ");
 	scanf("%d", &informacion->numeroAdultos);
@@ -112,15 +112,19 @@ void imprimirMatriz(Contenedora *cont) {
 }
 
 void llenarMatriz(Contenedora *cont) {
+	srand(time(0));
 
-	for (int i = 0; i < cont->habitaciones; i++) {
-		for (int j = 0; j < cont->pisos; j++) {
-			cont->vec[i][j].id = createString("-");
+	for (int i = 0; i < cont->pisos; i++) {
+		for (int j = 0; j < cont->habitaciones; j++) {
+			size_t len = snprintf(NULL, 0, "%d-%d", i, j);
+			char *buffer = malloc(len + 1);
+			snprintf(buffer, len + 1, "%d-%d", i, j);
+			cont->vec[i][j].id = generateString(buffer, len + 1, len + 1);
 			cont->vec[i][j].estado = 'L';
 			cont->vec[i][j].cliente = NULL;
 			cont->vec[i][j].informacion = NULL;
-			cont->vec[i][j].camas = 3;
-			cont->vec[i][j].clasificacion = NULL;
+			cont->vec[i][j].camas = 2 + (rand() % (5 - 2));
+			cont->vec[i][j].clasificacion = 1 + (rand() % (3 - 1));
 		}
 	}
 }
@@ -131,8 +135,8 @@ int cantHabitacionesLibres(Contenedora *cont) {
 
 	int contador = 0;
 
-	for (int i = 0; i < cont->habitaciones; i++) {
-		for (int j = 0; j < cont->pisos; j++) {
+	for (int i = 0; i < cont->pisos; i++) {
+		for (int j = 0; j < cont->habitaciones; j++) {
 			habitacion = matriz[i][j];
 			if (habitacion.estado == 'L') {
 				contador++;
@@ -219,12 +223,9 @@ void liberarhabitacionPorIdCliente(String *id, Contenedora *cont) {
 	Habitacion *hab = obtenerHabitacionPorIdCliente(id, cont);
 
 	if (hab != NULL) {
-		hab->id = createString("-");
 		hab->estado = 'L';
 		hab->cliente = NULL;
 		hab->informacion = NULL;
-		hab->camas = 3;
-		hab->clasificacion = NULL;
 	}
 }
 
