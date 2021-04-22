@@ -57,13 +57,11 @@ void crearCliente(Cliente *cliente) {
 
 void llenarInformacion(Informacion *informacion) {
 
-	char todoIncluido = 'n';
-	do {
-		printf("\nReservacion todo incluido? ");
-		printf("\n (s)i (n)o \n");
-		scanf(" %c", &todoIncluido);
-	} while (todoIncluido != 's' || todoIncluido != 'n');
-	informacion->todoIncluido = todoIncluido == 's';
+	int todoIncluido = 0;
+
+	printf("\nReservacion todo incluido? ");
+	printf("\n 0.Si 1.No \n");
+	scanf(" %d", &informacion->todoIncluido);
 
 	printf("\nNumero de adultos: ");
 	scanf("%d", &informacion->numeroAdultos);
@@ -103,6 +101,24 @@ void imprimirMatriz(Contenedora *cont) {
 		for (int j = 0; j < cont->pisos; j++) {
 			habitacion = matriz[i][j];
 			printf("%c ", habitacion.estado);
+		}
+		printf("\n");
+	}
+}
+
+void imprimirMatrizId(Contenedora *cont) {
+
+	Habitacion **matriz = cont->vec;
+	Habitacion habitacion;
+	printf("Estados de las habitaciones \n Ocupadas: O \n Disponibles: poseen "
+	       "un numero \n En mantenimiento: M");
+	printf("\n\n");
+
+	for (int i = 0; i < cont->habitaciones; i++) {
+		for (int j = 0; j < cont->pisos; j++) {
+			habitacion = matriz[i][j];
+			printf("   ");
+			imprimirCadena(matriz[i][j].id);
 		}
 		printf("\n");
 	}
@@ -208,7 +224,6 @@ Habitacion *obtenerHabitacionPorIdCliente(String *id, Contenedora *cont) {
 			habitacion = matriz[i][j];
 			if (cmpString(id, habitacion.cliente->id)) {
 				return &matriz[i][j];
-				;
 			}
 		}
 	}
@@ -218,6 +233,16 @@ Habitacion *obtenerHabitacionPorIdCliente(String *id, Contenedora *cont) {
 
 void liberarhabitacionPorIdCliente(String *id, Contenedora *cont) {
 	Habitacion *hab = obtenerHabitacionPorIdCliente(id, cont);
+
+	if (hab != NULL) {
+		hab->estado = 'L';
+		hab->cliente = NULL;
+		hab->informacion = NULL;
+	}
+}
+
+void liberarhabitacion(Habitacion *habitacion) {
+	Habitacion *hab = habitacion;
 
 	if (hab != NULL) {
 		hab->estado = 'L';
@@ -334,7 +359,7 @@ int RecaudacionDeTodosLosClientes(Contenedora *cont) {
 			if (habitacion.estado != 'L') {
 				info = matriz[i][j].informacion;
 				if (info != NULL) {
-					contador += info->numeroInfante;
+					contador += calcularPrecioHospedaje(&matriz[i][j]);
 				}
 			}
 		}
@@ -358,7 +383,7 @@ int RecaudacionDeClientesTodoIncluido(Contenedora *cont) {
 				info = matriz[i][j].informacion;
 				if (info != NULL) {
 					if (info->todoIncluido) {
-						contador += info->numeroInfante;
+						contador += calcularPrecioHospedaje(&matriz[i][j]);
 					}
 				}
 			}
@@ -383,7 +408,7 @@ int RecaudacionDeClientesSinTodoIncluido(Contenedora *cont) {
 				info = matriz[i][j].informacion;
 				if (info != NULL) {
 					if (!info->todoIncluido) {
-						contador += info->numeroInfante;
+						contador += calcularPrecioHospedaje(&matriz[i][j]);
 					}
 				}
 			}
@@ -391,6 +416,29 @@ int RecaudacionDeClientesSinTodoIncluido(Contenedora *cont) {
 	}
 
 	return contador;
+}
+
+int cancelarHabitacionPorId(Contenedora *cont, String *id) {
+
+	Cliente *cliente = NULL;
+	int aux = 0;
+
+	for (int i = 0; i < cont->pisos; i++) {
+		for (int j = 0; j < cont->habitaciones; j++) {
+
+			cliente = cont->vec[i][j].cliente;
+			if (cliente != NULL) {
+				if (cmpString(id, cliente->id)) {
+
+					aux = calcularPrecioHospedaje(&cont->vec[i][j]);
+					liberarhabitacion(&cont->vec[i][j]);
+					return aux;
+				}
+			}
+		}
+	}
+
+	return aux;
 }
 
 /*void obtenerHabitacionPorIdhabitacion(String *id, Contenedora *cont) {

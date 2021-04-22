@@ -19,19 +19,19 @@ void administrarHabitaciones();
 void verEstadoDeLasHabitaciones();
 void cambiarEstadoHabitaciones();
 void ponerHabitacionEnHabitaciones();
-
+void pagarReservacion();
 void inicializarMemoria();
 void liberarMemoria();
 void imprimirMatriz(Contenedora *);
 void pause();
-
+void imprimirMatrizId(Contenedora *);
 void guardarCadena(String *);
 void reservarHabitacion(Habitacion *);
 void cambiarEstadoDelaHabitacion(Contenedora *, String *, String *);
 int RecaudacionDeTodosLosClientes(Contenedora *);
 int RecaudacionDeClientesTodoIncluido(Contenedora *);
 int RecaudacionDeClientesSinTodoIncluido(Contenedora *);
-
+int cancelarHabitacionPorId(Contenedora *, String *);
 int cantDeCamasDesocupadasSegunAux(Contenedora *, int);
 int cantHabitacionesLibres(Contenedora *);
 int cantHabitacionesEnMantenimiento(Contenedora *);
@@ -108,6 +108,17 @@ void mainMenu() {
 	liberarMemoria();
 }
 
+void pagarReservacion() {
+
+	String *idCliente = NULL;
+
+	printf("Ingrese el id del cliente");
+	idCliente = readString();
+	printf("Debe de cancelar: %d",
+	       cancelarHabitacionPorId(&contenedor, idCliente));
+	pause();
+}
+
 void administrarReservaciones() {
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
@@ -117,8 +128,9 @@ void administrarReservaciones() {
 		printf("             Sub-Menu  Reservaciones");
 		printf("\n   -------------------------------------");
 		printf("\n   | 1- Agregar reservaciones          |");
-		printf("\n   | 2- Ver reservaciones              |");
-		printf("\n   | 3- Volver al menu principal       |");
+		printf("\n   | 2- Pagar reservaciones            |");
+		printf("\n   | 3- Ver reservaciones              |");
+		printf("\n   | 4- Volver al menu principal       |");
 		printf("\n   -------------------------------------");
 
 		printf("\n   Digite una opcion: ");
@@ -131,10 +143,15 @@ void administrarReservaciones() {
 			break;
 		case 2:
 
-			verReservaciones();
+			pagarReservacion();
 			break;
 
 		case 3:
+
+			verReservaciones();
+			break;
+
+		case 4:
 
 			opcionWhile = 0;
 			break;
@@ -149,6 +166,7 @@ void agregarReservaciones() {
 
 	String *idHabitacion = NULL;
 
+	imprimirMatrizId(&contenedor);
 	printf("Ingrese el id de la habitacion");
 	idHabitacion = readString();
 
