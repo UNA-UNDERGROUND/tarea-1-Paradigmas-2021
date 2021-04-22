@@ -1,3 +1,4 @@
+#include "utils.h"
 #include <contenedora.h>
 #include <habitacion.h>
 #include <stdbool.h>
@@ -36,6 +37,9 @@ int cantDePersonasAdultas(Contenedora *);
 int cantDeNinnos(Contenedora *);
 
 void llenarMatriz(Contenedora *);
+
+void llenarMatriz();
+
 
 void limpiarPantalla() {
 // aunque esto se considera inseguro
@@ -141,10 +145,10 @@ void administrarReservaciones() {
 
 void agregarReservaciones() {
 
-	String *idHabitacion = createString("a");
+	String *idHabitacion = NULL;
 
 	printf("Ingrese el id de la habitacion");
-	guardarCadena(idHabitacion);
+	idHabitacion = readString();
 
 	for (int i = 0; i < contenedor.habitaciones; i++) {
 		for (int j = 0; j < contenedor.pisos; j++) {
@@ -210,11 +214,11 @@ void verEstadoDeLasHabitaciones() {
 // TODO: por implementar
 void cambiarEstadoHabitaciones() {
 
-	String *idHabitacion = createString("a");
+	String *idHabitacion = NULL;
 	char estado;
 
 	printf("Ingrese el id de la habitacion");
-	guardarCadena(idHabitacion);
+	idHabitacion = readString();
 	printf("Ingrese el nuevo estado de la habitacion");
 	scanf("  %c", &estado);
 
