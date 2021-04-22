@@ -22,9 +22,26 @@ void ponerHabitacionEnHabitaciones();
 
 void inicializarMemoria();
 void liberarMemoria();
+void imprimirMatriz(Contenedora *);
+void pause();
+
+void guardarCadena(String *);
+void reservarHabitacion(Habitacion *);
+void cambiarEstadoDelaHabitacion(Contenedora *, String *, String *);
+int RecaudacionDeTodosLosClientes(Contenedora *);
+int RecaudacionDeClientesTodoIncluido(Contenedora *);
+int RecaudacionDeClientesSinTodoIncluido(Contenedora *);
+
+int cantDeCamasDesocupadasSegunAux(Contenedora *, int);
+int cantHabitacionesLibres(Contenedora *);
+int cantHabitacionesEnMantenimiento(Contenedora *);
+int cantHabitacionesOcupadas(Contenedora *);
+int cantDePersonasAdultas(Contenedora *);
+int cantDeNinnos(Contenedora *);
+
+void llenarMatriz(Contenedora *);
 
 void llenarMatriz();
-
 
 void limpiarPantalla() {
 // aunque esto se considera inseguro
@@ -212,16 +229,28 @@ void cambiarEstadoHabitaciones() {
 }
 
 // TODO: por implementar
-void mostrarRecaudacionDeClientesTodoIncluido() {}
+void mostrarRecaudacionDeClientesTodoIncluido() {
+	printf("%d", RecaudacionDeTodosLosClientes(&contenedor));
+	pause();
+}
 
 // TODO: por implementar
-void mostrarRecaudacionDeClientesSinTodoIncluido() {}
+void mostrarRecaudacionDeClientesSinTodoIncluido() {
+	printf("%d", RecaudacionDeClientesTodoIncluido(&contenedor));
+	pause();
+}
 
 // TODO: por implementar
-void mostrarRecaudacionDeTodosLosClientes() {}
+void mostrarRecaudacionDeTodosLosClientes() {
+	printf("%d", RecaudacionDeClientesSinTodoIncluido(&contenedor));
+	pause();
+}
 
 // TODO: por implementar
-void verClientesRegistrados() {}
+void verClientesRegistrados() {
+	imprimirMatriz(&contenedor);
+	pause();
+}
 
 void administrarReportesDeRecaudacion() {
 
@@ -309,12 +338,11 @@ void administrarReportes() {
 		       "     |");
 		printf("\n   | 5- Cuantas personas adultas hay el dia de hoy en el "
 		       "hotel   |");
-		printf(
-		    "\n   | 6- Cuantos ninnos existen al dia de hoy en el hotel      "
-		    "    |");
+		printf("\n   | 6- Cuantos ninnos existen al dia de hoy en el hotel     "
+		       "    |");
 		printf("\n   | 7- Submenu-Reportes De Recaudacion                      "
 		       "     |");
-		printf("\n   | 8- Salir                      "
+		printf("\n   | 8- Salir                                                "
 		       "     |");
 		printf(
 		    "\n   "
