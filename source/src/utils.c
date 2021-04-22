@@ -5,19 +5,32 @@
 
 const size_t BUFFER_SIZE = 256;
 
-String *readString() { return fReadString(stdin); }
-String *readLine(char delim) { return fReadLine(stdin, delim); }
+String *readString() {
+#ifdef WIN32
+	fflush(stdin);
+#endif
+	
+	return fReadString(stdin); }
+String *readLine(char delim) {
+#ifdef WIN32
+	fflush(stdin);
+#endif
+	return fReadLine(stdin, delim); }
 String *fReadString(FILE *stream) {
 	String *string = NULL;
 	if (stream) {
 		size_t len = 0;
 		size_t size = BUFFER_SIZE;
 		char *buffer = malloc(BUFFER_SIZE);
-
 		char c = getc(stream);
 		while (c != EOF) {
 			if (c == ' ' || c == '\n') {
-				break;
+				if (len > 0) {
+					break;
+				} else {
+					c = getc(stream);
+					continue;
+				}
 			}
 			// redimensionar
 			if (len == size) {
