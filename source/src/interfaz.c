@@ -21,6 +21,21 @@ void ponerHabitacionEnHabitaciones();
 
 void inicializarMemoria();
 void liberarMemoria();
+void imprimirMatriz(Contenedora *);
+void pause();
+
+void guardarCadena(String *);
+void reservarHabitacion(Habitacion *);
+void cambiarEstadoDelaHabitacion(Contenedora *, String *, String *);
+
+int cantDeCamasDesocupadasSegunAux(Contenedora *, int);
+int cantHabitacionesLibres(Contenedora *);
+int cantHabitacionesEnMantenimiento(Contenedora *);
+int cantHabitacionesOcupadas(Contenedora *);
+int cantDePersonasAdultas(Contenedora *);
+int cantDeNinnos(Contenedora *);
+
+void llenarMatriz(Contenedora *);
 
 void limpiarPantalla() {
 // aunque esto se considera inseguro
