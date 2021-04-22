@@ -8,7 +8,7 @@
 void mostrarRecaudacionDeClientesTodoIncluido();
 void mostrarRecaudacionDeClientesSinTodoIncluido();
 void mostrarRecaudacionDeTodosLosClientes();
-void verClientesRegistrados();
+
 void administrarReportesDeRecaudacion();
 
 void administrarReportes();
@@ -19,12 +19,29 @@ void administrarHabitaciones();
 void verEstadoDeLasHabitaciones();
 void cambiarEstadoHabitaciones();
 void ponerHabitacionEnHabitaciones();
-
+void pagarReservacion();
 void inicializarMemoria();
 void liberarMemoria();
+void imprimirMatriz(Contenedora *);
+void pause();
+void imprimirMatrizId(Contenedora *);
+void guardarCadena(String *);
+void reservarHabitacion(Habitacion *);
+void cambiarEstadoDelaHabitacion(Contenedora *, String *, String *);
+int RecaudacionDeTodosLosClientes(Contenedora *);
+int RecaudacionDeClientesTodoIncluido(Contenedora *);
+int RecaudacionDeClientesSinTodoIncluido(Contenedora *);
+int cancelarHabitacionPorId(Contenedora *, String *);
+int cantDeCamasDesocupadasSegunAux(Contenedora *, int);
+int cantHabitacionesLibres(Contenedora *);
+int cantHabitacionesEnMantenimiento(Contenedora *);
+int cantHabitacionesOcupadas(Contenedora *);
+int cantDePersonasAdultas(Contenedora *);
+int cantDeNinnos(Contenedora *);
+
+void llenarMatriz(Contenedora *);
 
 void llenarMatriz();
-
 
 void limpiarPantalla() {
 // aunque esto se considera inseguro
@@ -51,8 +68,7 @@ void mainMenu() {
 		printf("\n   | 1- Administrar reservaciones      |");
 		printf("\n   | 2- Administrar habitaciones       |");
 		printf("\n   | 3- Administrar reportes           |");
-		printf("\n   | 4- Ver clientes registrados       |");
-		printf("\n   | 5- Salir                          |");
+		printf("\n   | 4- Salir                          |");
 		printf("\n   -------------------------------------");
 
 		printf("\n   Digite una opcion: ");
@@ -73,12 +89,8 @@ void mainMenu() {
 
 			administrarReportes();
 			break;
+
 		case 4:
-
-			verClientesRegistrados();
-			break;
-
-		case 5:
 
 			opcionWhile = 0;
 			break;
@@ -90,6 +102,17 @@ void mainMenu() {
 	liberarMemoria();
 }
 
+void pagarReservacion() {
+
+	String *idCliente = NULL;
+
+	printf("Ingrese el id del cliente");
+	idCliente = readString();
+	printf("Debe de cancelar: %d",
+	       cancelarHabitacionPorId(&contenedor, idCliente));
+	pause();
+}
+
 void administrarReservaciones() {
 	bool opcionWhile = 1;
 	int opcionMenu = 0;
@@ -99,8 +122,9 @@ void administrarReservaciones() {
 		printf("             Sub-Menu  Reservaciones");
 		printf("\n   -------------------------------------");
 		printf("\n   | 1- Agregar reservaciones          |");
-		printf("\n   | 2- Ver reservaciones              |");
-		printf("\n   | 3- Volver al menu principal       |");
+		printf("\n   | 2- Pagar reservaciones            |");
+		printf("\n   | 3- Ver reservaciones              |");
+		printf("\n   | 4- Volver al menu principal       |");
 		printf("\n   -------------------------------------");
 
 		printf("\n   Digite una opcion: ");
@@ -113,10 +137,15 @@ void administrarReservaciones() {
 			break;
 		case 2:
 
-			verReservaciones();
+			pagarReservacion();
 			break;
 
 		case 3:
+
+			verReservaciones();
+			break;
+
+		case 4:
 
 			opcionWhile = 0;
 			break;
@@ -131,6 +160,7 @@ void agregarReservaciones() {
 
 	String *idHabitacion = NULL;
 
+	imprimirMatrizId(&contenedor);
 	printf("Ingrese el id de la habitacion");
 	idHabitacion = readString();
 
@@ -211,16 +241,28 @@ void cambiarEstadoHabitaciones() {
 }
 
 // TODO: por implementar
-void mostrarRecaudacionDeClientesTodoIncluido() {}
+void mostrarRecaudacionDeClientesTodoIncluido() {
+	printf("%d", RecaudacionDeTodosLosClientes(&contenedor));
+	pause();
+}
 
 // TODO: por implementar
-void mostrarRecaudacionDeClientesSinTodoIncluido() {}
+void mostrarRecaudacionDeClientesSinTodoIncluido() {
+	printf("%d", RecaudacionDeClientesTodoIncluido(&contenedor));
+	pause();
+}
 
 // TODO: por implementar
-void mostrarRecaudacionDeTodosLosClientes() {}
+void mostrarRecaudacionDeTodosLosClientes() {
+	printf("%d", RecaudacionDeClientesSinTodoIncluido(&contenedor));
+	pause();
+}
 
 // TODO: por implementar
-void verClientesRegistrados() {}
+void verClientesRegistrados() {
+	imprimirMatriz(&contenedor);
+	pause();
+}
 
 void administrarReportesDeRecaudacion() {
 
@@ -308,12 +350,11 @@ void administrarReportes() {
 		       "     |");
 		printf("\n   | 5- Cuantas personas adultas hay el dia de hoy en el "
 		       "hotel   |");
-		printf(
-		    "\n   | 6- Cuantos ninnos existen al dia de hoy en el hotel      "
-		    "    |");
+		printf("\n   | 6- Cuantos ninnos existen al dia de hoy en el hotel     "
+		       "    |");
 		printf("\n   | 7- Submenu-Reportes De Recaudacion                      "
 		       "     |");
-		printf("\n   | 8- Salir                      "
+		printf("\n   | 8- Salir                                                "
 		       "     |");
 		printf(
 		    "\n   "
