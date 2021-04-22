@@ -46,7 +46,7 @@ void llenarMatriz();
 void limpiarPantalla() {
 // aunque esto se considera inseguro
 // el proyecto solo es con fines de demostracion
-#ifdef WIN32
+#ifdef _WIN32
 	system("cls");
 #else
 	system("clear");
