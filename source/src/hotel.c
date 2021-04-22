@@ -28,15 +28,15 @@ void imprimirCadena(String *cadena) {
 }
 
 void crearCliente(Cliente *cliente) {
-	String *id = createString("a");
-	String *nombre = createString("a");
-	String *telefono = createString("a");
+	String *id = NULL;
+	String *nombre = NULL;
+	String *telefono = NULL;
 
 	int hw = 1;
 	while (hw) {
 		printf("\nIngrese los datos del cliente:");
 		printf("\nID:");
-		guardarCadena(id);
+		id = readString();
 		cliente->id = id;
 		printf("\n Edad:");
 		scanf("%d", &cliente->edad);
@@ -46,10 +46,10 @@ void crearCliente(Cliente *cliente) {
 			printf("Vuelva a ingresar los datos");
 		} else {
 			printf("\nNombre: ");
-			guardarCadena(nombre);
+			nombre = readString();
 			cliente->nombreCliente = nombre;
 			printf("\nTelefono: ");
-			guardarCadena(telefono);
+			telefono = readString();
 			cliente->telefono = nombre;
 			printf("\nMetodo de pago: ");
 			cliente->metodoPago = efectivo;
